@@ -1,0 +1,15 @@
+class myclass {
+  int zmienna1;
+  int zmienna2;
+  int funkcja1();
+  char zmienna3;
+  int funkcja2();
+  char funkcja3();
+
+}
+
+class myclass2 {
+  int zmienna1;
+  int zmienna2;
+
+}

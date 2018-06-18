@@ -1,0 +1,399 @@
+Terminals which are not used
+
+   COLABRATION
+   STRING
+   PTR
+   METHODNAME
+   USING
+   HAS_A
+   KIND_OF
+
+
+Rules never reduced
+
+   15 methods: methods methodName
+
+   17 properties: properties property
+
+
+State 25 conflicts: 3 reduce/reduce
+State 27 conflicts: 3 reduce/reduce
+
+
+Grammar
+
+    0 $accept: data $end
+
+    1 data: cards
+
+    2 cards: class
+    3      | cards class
+    4      | error
+
+    5 class: CLASS className BEGIN_SCOPE class_content END
+    6      | CLASS className BEGIN_SCOPE error END
+    7      | CLASS error
+
+    8 className: CLASSNAME
+
+    9 type: INT
+   10     | CHAR
+
+   11 class_content: methods class_content
+   12              | properties class_content
+   13              | /* empty */
+
+   14 methods: methodName
+   15        | methods methodName
+
+   16 properties: property
+   17           | properties property
+
+   18 methodName: type VARIABLE OPEN_BRACKET CLOSE_BRACKET ';'
+
+   19 property: type VARIABLE ';'
+   20         | type VARIABLE
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+';' (59) 18 19
+error (256) 4 6 7
+CLASS (258) 5 6 7
+END (259) 5 6
+CLASSNAME (260) 8
+BEGIN_SCOPE (261) 5 6
+OPEN_BRACKET (262) 18
+CLOSE_BRACKET (263) 18
+COLABRATION (264)
+STRING (265)
+INT (266) 9
+CHAR (267) 10
+PTR (268)
+VARIABLE (269) 18 19 20
+METHODNAME (270)
+USING (271)
+HAS_A (272)
+KIND_OF (273)
+
+
+Nonterminals, with rules where they appear
+
+$accept (20)
+    on left: 0
+data (21)
+    on left: 1, on right: 0
+cards (22)
+    on left: 2 3 4, on right: 1 3
+class (23)
+    on left: 5 6 7, on right: 2 3
+className (24)
+    on left: 8, on right: 5 6
+type (25)
+    on left: 9 10, on right: 18 19 20
+class_content (26)
+    on left: 11 12 13, on right: 5 11 12
+methods (27)
+    on left: 14 15, on right: 11 15
+properties (28)
+    on left: 16 17, on right: 12 17
+methodName (29)
+    on left: 18, on right: 14 15
+property (30)
+    on left: 19 20, on right: 16 17
+
+
+state 0
+
+    0 $accept: . data $end
+
+    error  shift, and go to state 1
+    CLASS  shift, and go to state 2
+
+    data   go to state 3
+    cards  go to state 4
+    class  go to state 5
+
+
+state 1
+
+    4 cards: error .
+
+    $default  reduce using rule 4 (cards)
+
+
+state 2
+
+    5 class: CLASS . className BEGIN_SCOPE class_content END
+    6      | CLASS . className BEGIN_SCOPE error END
+    7      | CLASS . error
+
+    error      shift, and go to state 6
+    CLASSNAME  shift, and go to state 7
+
+    className  go to state 8
+
+
+state 3
+
+    0 $accept: data . $end
+
+    $end  shift, and go to state 9
+
+
+state 4
+
+    1 data: cards .
+    3 cards: cards . class
+
+    CLASS  shift, and go to state 2
+
+    $default  reduce using rule 1 (data)
+
+    class  go to state 10
+
+
+state 5
+
+    2 cards: class .
+
+    $default  reduce using rule 2 (cards)
+
+
+state 6
+
+    7 class: CLASS error .
+
+    $default  reduce using rule 7 (class)
+
+
+state 7
+
+    8 className: CLASSNAME .
+
+    $default  reduce using rule 8 (className)
+
+
+state 8
+
+    5 class: CLASS className . BEGIN_SCOPE class_content END
+    6      | CLASS className . BEGIN_SCOPE error END
+
+    BEGIN_SCOPE  shift, and go to state 11
+
+
+state 9
+
+    0 $accept: data $end .
+
+    $default  accept
+
+
+state 10
+
+    3 cards: cards class .
+
+    $default  reduce using rule 3 (cards)
+
+
+state 11
+
+    5 class: CLASS className BEGIN_SCOPE . class_content END
+    6      | CLASS className BEGIN_SCOPE . error END
+
+    error  shift, and go to state 12
+    INT    shift, and go to state 13
+    CHAR   shift, and go to state 14
+
+    END  reduce using rule 13 (class_content)
+
+    type           go to state 15
+    class_content  go to state 16
+    methods        go to state 17
+    properties     go to state 18
+    methodName     go to state 19
+    property       go to state 20
+
+
+state 12
+
+    6 class: CLASS className BEGIN_SCOPE error . END
+
+    END  shift, and go to state 21
+
+
+state 13
+
+    9 type: INT .
+
+    $default  reduce using rule 9 (type)
+
+
+state 14
+
+   10 type: CHAR .
+
+    $default  reduce using rule 10 (type)
+
+
+state 15
+
+   18 methodName: type . VARIABLE OPEN_BRACKET CLOSE_BRACKET ';'
+   19 property: type . VARIABLE ';'
+   20         | type . VARIABLE
+
+    VARIABLE  shift, and go to state 22
+
+
+state 16
+
+    5 class: CLASS className BEGIN_SCOPE class_content . END
+
+    END  shift, and go to state 23
+
+
+state 17
+
+   11 class_content: methods . class_content
+   15 methods: methods . methodName
+
+    INT   shift, and go to state 13
+    CHAR  shift, and go to state 14
+
+    $default  reduce using rule 13 (class_content)
+
+    type           go to state 15
+    class_content  go to state 24
+    methods        go to state 17
+    properties     go to state 18
+    methodName     go to state 25
+    property       go to state 20
+
+
+state 18
+
+   12 class_content: properties . class_content
+   17 properties: properties . property
+
+    INT   shift, and go to state 13
+    CHAR  shift, and go to state 14
+
+    $default  reduce using rule 13 (class_content)
+
+    type           go to state 15
+    class_content  go to state 26
+    methods        go to state 17
+    properties     go to state 18
+    methodName     go to state 19
+    property       go to state 27
+
+
+state 19
+
+   14 methods: methodName .
+
+    $default  reduce using rule 14 (methods)
+
+
+state 20
+
+   16 properties: property .
+
+    $default  reduce using rule 16 (properties)
+
+
+state 21
+
+    6 class: CLASS className BEGIN_SCOPE error END .
+
+    $default  reduce using rule 6 (class)
+
+
+state 22
+
+   18 methodName: type VARIABLE . OPEN_BRACKET CLOSE_BRACKET ';'
+   19 property: type VARIABLE . ';'
+   20         | type VARIABLE .
+
+    OPEN_BRACKET  shift, and go to state 28
+    ';'           shift, and go to state 29
+
+    $default  reduce using rule 20 (property)
+
+
+state 23
+
+    5 class: CLASS className BEGIN_SCOPE class_content END .
+
+    $default  reduce using rule 5 (class)
+
+
+state 24
+
+   11 class_content: methods class_content .
+
+    $default  reduce using rule 11 (class_content)
+
+
+state 25
+
+   14 methods: methodName .
+   15        | methods methodName .
+
+    END       reduce using rule 14 (methods)
+    END       [reduce using rule 15 (methods)]
+    INT       reduce using rule 14 (methods)
+    INT       [reduce using rule 15 (methods)]
+    CHAR      reduce using rule 14 (methods)
+    CHAR      [reduce using rule 15 (methods)]
+    $default  reduce using rule 14 (methods)
+
+
+state 26
+
+   12 class_content: properties class_content .
+
+    $default  reduce using rule 12 (class_content)
+
+
+state 27
+
+   16 properties: property .
+   17           | properties property .
+
+    END       reduce using rule 16 (properties)
+    END       [reduce using rule 17 (properties)]
+    INT       reduce using rule 16 (properties)
+    INT       [reduce using rule 17 (properties)]
+    CHAR      reduce using rule 16 (properties)
+    CHAR      [reduce using rule 17 (properties)]
+    $default  reduce using rule 16 (properties)
+
+
+state 28
+
+   18 methodName: type VARIABLE OPEN_BRACKET . CLOSE_BRACKET ';'
+
+    CLOSE_BRACKET  shift, and go to state 30
+
+
+state 29
+
+   19 property: type VARIABLE ';' .
+
+    $default  reduce using rule 19 (property)
+
+
+state 30
+
+   18 methodName: type VARIABLE OPEN_BRACKET CLOSE_BRACKET . ';'
+
+    ';'  shift, and go to state 31
+
+
+state 31
+
+   18 methodName: type VARIABLE OPEN_BRACKET CLOSE_BRACKET ';' .
+
+    $default  reduce using rule 18 (methodName)
